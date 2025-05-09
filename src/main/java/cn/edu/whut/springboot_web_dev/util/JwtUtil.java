@@ -9,11 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class JwtUtil {
-    // 推荐使用更强的密钥，避免使用简单的字符串作为密钥
-    private static final String SECRET_KEY = "your-very-very-long-secret-key-that-is-secure"; // 请替换为一个更复杂的密钥
+    private static final String SECRET_KEY = "your-very-very-long-secret-key-that-is-secure";
     private static final long EXPIRATION = 1000 * 60 * 60 * 24; // 1天
 
-    // 生成 JWT Token
     public static String generateToken(String username) {
         Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
@@ -25,7 +23,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    // 解析 JWT Token
     public static String parseToken(String token) {
         Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
@@ -38,7 +35,6 @@ public class JwtUtil {
         return claims.getSubject();
     }
 
-    // 验证 Token 是否有效
     public static boolean isTokenValid(String token) {
         try {
             parseToken(token);

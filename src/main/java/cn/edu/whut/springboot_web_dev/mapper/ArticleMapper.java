@@ -28,5 +28,4 @@ public interface ArticleMapper {
 
     @Update("UPDATE articles SET author = #{form.author}, title = #{form.title}, content = #{form.content} WHERE article_id = #{articleId}")
     void update(@Param("articleId") Integer articleId, @Param("form") ArticleForm form);
-
 }

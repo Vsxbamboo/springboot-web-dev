@@ -43,8 +43,12 @@ public class ContactController {
         contact.setAddress(form.getAddress());
         contact.setPostalCode(form.getPostalCode());
         contact.setDate(form.getDate());
-        contactService.addContact(contact);
-        return ResponseEntity.ok().build();
+        try {
+            contactService.addContact(contact);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{name}")

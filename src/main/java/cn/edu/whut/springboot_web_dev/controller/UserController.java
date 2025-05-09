@@ -35,8 +35,12 @@ public class UserController {
         user.setBalance(BigDecimal.ZERO);
         user.setBirthday(request.getBirthday());
         user.setAvatarId(request.getAvatarId());
-        userService.createUser(user);
-        return ResponseEntity.ok().build();
+        try {
+            userService.createUser(user);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
     @GetMapping()
     public ResponseEntity<UserInfo> getUserInfo() {
@@ -63,7 +67,11 @@ public class UserController {
     }
     @PutMapping
     public ResponseEntity<Void> updateUserInfo(@RequestBody PwdUpdateRequest request) {
-        userService.updatePassword(request);
-        return ResponseEntity.ok().build();
+        try {
+            userService.updatePassword(request);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(401).build();
+        }
     }
 }
